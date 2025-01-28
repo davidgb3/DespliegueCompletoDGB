@@ -1,0 +1,40 @@
+# Usar la imagen oficial de PHP con Apache
+FROM php:8.2-apache
+
+# Instalar extensiones necesarias
+RUN apt-get update && apt-get install -y \
+ git \
+ unzip \
+ libicu-dev \
+ && docker-php-ext-install pdo pdo_mysql
+
+# Instalar Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
+
+# Configurar el directorio de trabajo
+WORKDIR /app
+
+# Copiar archivos del backend al contenedor
+COPY . .
+
+# Limpiar y preparar el entorno antes de instalar dependencias
+RUN rm -rf vendor/* && composer clear-cache
+
+# Instalar dependencias con Composer
+RUN composer install --no-interaction
+
+# Instalar paquetes adicionales
+RUN composer require symfony/orm-pack doctrine/doctrine-bundle doctrine/dbal --no-interaction
+
+# Ejecutar migraciones al construir la imagen
+RUN php bin/console doctrine:migrations:diff || true
+RUN php bin/console doctrine:migrations:migrate --no-interaction || true
+
+# Establecer permisos para el directorio var y vendor
+RUN chmod -R 777 /app/vendor /app/var
+
+# Exponer el puerto
+EXPOSE 8000
+
+# Comando para iniciar el servidor
+CMD ["php", "-S", "0.0.0.0:8000", "-t", "public"]
