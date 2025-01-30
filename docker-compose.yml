@@ -17,7 +17,7 @@ services:
   backend:
     build:
       context: ./backend
-      dockerfile: DockerfileBackend
+      dockerfile: DockerfileBackendDGB
     ports:
       - "8000:8000"
     volumes:
@@ -37,9 +37,9 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: myapp
-      MYSQL_USER: user
-      MYSQL_PASSWORD: password
+      MYSQL_DATABASE: DGB_BD
+      MYSQL_USER: alumnoDAW
+      MYSQL_PASSWORD: passDGB
     volumes:
       - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
       - database_data:/var/lib/mysql
@@ -51,8 +51,8 @@ services:
       - "8080:80"
     environment:
       PMA_HOST: database
-      PMA_USER: user
-      PMA_PASSWORD: password
+      PMA_USER: alumnoDAW
+      PMA_PASSWORD: passDGB
     depends_on:
       - database
     networks:

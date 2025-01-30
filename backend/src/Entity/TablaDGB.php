@@ -5,8 +5,8 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity]
-#[ORM\Table(name: "messages")]
-class Message
+#[ORM\Table(name: "TablaDGB")]
+class TablaDGB
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
