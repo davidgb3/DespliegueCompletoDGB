@@ -3,4 +3,4 @@ CREATE TABLE secretosDGB (
     fraseDGB VARCHAR(255) NOT NULL
 );
 
-INSERT INTO secretosDGB (fraseDGB) VALUES ('Buenos dias David Gomez Bravo!!');
+INSERT INTO secretosDGB (fraseDGB) VALUES ('Buenos dias David Gomez Bravo');

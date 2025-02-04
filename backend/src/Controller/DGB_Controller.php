@@ -13,7 +13,7 @@ class DGB_Controller extends AbstractController
         $this->connection = $connection;
     }
 
-    #[Route('/api/DGB', name: 'get_db')]
+    #[Route('/api/DGB', name: 'get_dgb')]
     public function index(): JsonResponse
     {
         // Consulta para recuperar el primer mensaje de la tabla "messages"
